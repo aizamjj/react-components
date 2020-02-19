@@ -1,12 +1,11 @@
-var App = () => (
-    <div>
-      <h2>My Grocery List</h2>
-      <GroceryList groceries={['Cucumber', 'Kale', 'Tomato']}/> 
-    </div>
-  );
+// var App = () => (
+//     <div>
+//       <h2>My Grocery List</h2>
+//       <GroceryList groceries={['Cucumber', 'Kale', 'Tomato']}/> 
+//     </div>
+//   );
 
-const app = document.getElementById("app");
-ReactDOM.render(<GroceryList />, app);
+
 
 class GroceryListItem  extends React.Component {
     constructor(props) {
@@ -22,22 +21,36 @@ class GroceryListItem  extends React.Component {
         });
       }
     render() {
-        var groceries = ['Cucumber, Kale, Tomato']
-        return (
-        <li>{this.props.groceries}</li>        
+        var linkStyle;
+        if (this.state.hover) {
+        linkStyle = {color: '#ed1212',cursor: 'pointer'}
+        } else {
+        linkStyle = {color: '#000'}
+        }
+	    return(
+        <p style={linkStyle} onMouseEnter={this.toggleHover.bind(this)} onMouseLeave={this.toggleHover.bind(this)}>{this.props.groceryItem}</p>
+        
+        // var groceries = ['Cucumber, Kale, Tomato']
+        // return (
+        // <li>{this.props.groceries}</li>        
+        // );
         );
-    }
+    }   
 
 }
 
 var GroceryList = (props) => (
     <div>
-        {props.groceries.map(groceryItem =>
-        <GroceryListItem groceryItem={groceryItem} />
+        {props.groceryItems.map((groceryItem, index) =>
+        <GroceryListItem groceryItem={groceryItem} key={index} />
         )}
     </div>
 
 );
+
+const app = document.getElementById("app");
+ReactDOM.render(<GroceryList groceryItems={['drugs', 'alcohol']} />, app);
+
 
 
  
